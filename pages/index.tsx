@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Input, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  DarkMode,
+  Flex,
+  Input,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { KeyboardEvent, useCallback, useEffect, useState } from "react";
 import MainCTA from "../components/GameOver";
@@ -132,57 +140,59 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Box h="100vh" w="100vw">
-      <Head>
-        <title>Doorloop Typeracer</title>
-      </Head>
-      <Flex w="full" h="full" justifyContent="center">
-        <Flex
-          bg="gray.700"
-          rounded="xl"
-          p={4}
-          my="auto"
-          maxW="container.lg"
-          flexGrow={1}
-          minH="container.sm"
-          direction="column"
-          gap={4}
-        >
-          <Title />
-          <MainCTA
-            gameOver={gameOver}
-            isGameStarted={isGameStarted}
-            timeRemaining={timeRemaining}
-          />
-          <Stats accuracy={accuracy} wpm={wpm} />
-          <SimpleGrid w="full" columns={[4]}>
-            {wordBank.map((word, idx) => (
-              <Word
-                key={word}
-                word={word}
-                isCurrentWord={word === currentWord}
-                currentLetterIndex={letterIndex}
-                typedWord={typedWord}
-                lastTypedWords={lastTypedWords}
-                wordList={wordList}
-                wordIndex={idx}
-              />
-            ))}
-          </SimpleGrid>
-          <Input
-            value={typedWord}
-            placeholder="Type the words given here"
-            onKeyDown={handleChange}
-            onChange={() => {}}
-            disabled={!isGameStarted}
-          />
-          <Button onClick={handleGameStart} disabled={isGameStarted}>
-            {gameOver ? "Restart Game" : "Start Game"}
-          </Button>
-          <Text textAlign="center">Made by Mariano Fuentes</Text>
+    <DarkMode>
+      <Box h="100vh" w="100vw">
+        <Head>
+          <title>Doorloop Typeracer</title>
+        </Head>
+        <Flex w="full" h="full" justifyContent="center">
+          <Flex
+            bg="gray.700"
+            rounded="xl"
+            p={4}
+            my="auto"
+            maxW="container.lg"
+            flexGrow={1}
+            minH="container.sm"
+            direction="column"
+            gap={4}
+          >
+            <Title />
+            <MainCTA
+              gameOver={gameOver}
+              isGameStarted={isGameStarted}
+              timeRemaining={timeRemaining}
+            />
+            <Stats accuracy={accuracy} wpm={wpm} />
+            <SimpleGrid w="full" columns={[4]}>
+              {wordBank.map((word, idx) => (
+                <Word
+                  key={word}
+                  word={word}
+                  isCurrentWord={word === currentWord}
+                  currentLetterIndex={letterIndex}
+                  typedWord={typedWord}
+                  lastTypedWords={lastTypedWords}
+                  wordList={wordList}
+                  wordIndex={idx}
+                />
+              ))}
+            </SimpleGrid>
+            <Input
+              value={typedWord}
+              placeholder="Type the words given here"
+              onKeyDown={handleChange}
+              onChange={() => {}}
+              disabled={!isGameStarted}
+            />
+            <Button onClick={handleGameStart} disabled={isGameStarted}>
+              {gameOver ? "Restart Game" : "Start Game"}
+            </Button>
+            <Text textAlign="center">Made by Mariano Fuentes</Text>
+          </Flex>
         </Flex>
-      </Flex>
-    </Box>
+      </Box>
+    </DarkMode>
   );
 };
 

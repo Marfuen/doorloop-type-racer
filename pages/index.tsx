@@ -31,21 +31,11 @@ const Home: React.FC = () => {
   const accuracy = (correctKeysPressed / totalKeysPressed) * 100 || 0.0;
   const wpm = correctKeysPressed / 5 / 1 || 0.0;
 
-  const scrambleWords = useCallback(() => {
+  const handleGameStart = useCallback(() => {
     const scrambledWords = wordBank.sort(() => Math.random() - 0.5);
     setWordList(scrambledWords);
-    setCurrentWord(scrambledWords[0]);
-  }, []);
-
-  useEffect(() => {
-    // Randomize words in array
-    scrambleWords();
-  }, []);
-
-  const handleGameStart = useCallback(() => {
     setIsGameStarted(true);
-    scrambleWords();
-    setCurrentWord(wordList[0]);
+    setCurrentWord(scrambledWords[0]);
     setTimeRemaining(60);
     setWordIndex(0);
     setLetterIndex(0);
@@ -54,7 +44,7 @@ const Home: React.FC = () => {
     setMistakes(0);
     setTotalKeysPressed(0);
     setGameOver(false);
-  }, []);
+  }, [wordBank]);
 
   const endGame = () => {
     setIsGameStarted(false);
@@ -164,7 +154,7 @@ const Home: React.FC = () => {
               timeRemaining={timeRemaining}
             />
             <Stats accuracy={accuracy} wpm={wpm} />
-            <SimpleGrid w="full" columns={[4]}>
+            <SimpleGrid w="full" columns={[6]}>
               {wordBank.map((word, idx) => (
                 <Word
                   key={word}
